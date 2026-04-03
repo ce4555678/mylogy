@@ -26,7 +26,7 @@ export function NewNote() {
   const [content, setContent] = useState('')
 
   async function createNote(dataNote: { title: string; content: string }) {
-    env.backends.onnx.wasm.wasmPaths = '/paraphrase-multilingual-MiniLM-L12-v2/';
+    env.localModelPath = '/paraphrase-multilingual-MiniLM-L12-v2/';
     const extractor = await pipeline(
       'feature-extraction',
       'Xenova/paraphrase-multilingual-MiniLM-L12-v2',
