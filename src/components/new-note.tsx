@@ -17,7 +17,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { PenLine, Save, X } from 'lucide-react'
 import db from '#/db/db'
 import { notesTable } from '#/db/schema'
-import { pipeline } from '@xenova/transformers'
+import { pipeline, env } from '@xenova/transformers'
 import { toast } from 'sonner'
 
 export function NewNote() {
@@ -26,6 +26,7 @@ export function NewNote() {
   const [content, setContent] = useState('')
 
   async function createNote(dataNote: { title: string; content: string }) {
+    env.backends.onnx.wasm.wasmPaths = '/paraphrase-multilingual-MiniLM-L12-v2/';
     const extractor = await pipeline(
       'feature-extraction',
       'Xenova/paraphrase-multilingual-MiniLM-L12-v2',
