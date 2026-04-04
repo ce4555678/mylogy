@@ -20,13 +20,15 @@ import { notesTable } from '#/db/schema'
 import { pipeline, env } from '@xenova/transformers'
 import { toast } from 'sonner'
 
+env.localModelPath = '/paraphrase-multilingual-MiniLM-L12-v2/'
+env.allowRemoteModels = false
+
 export function NewNote() {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
   async function createNote(dataNote: { title: string; content: string }) {
-    env.localModelPath = '/paraphrase-multilingual-MiniLM-L12-v2/';
     const extractor = await pipeline(
       'feature-extraction',
       'Xenova/paraphrase-multilingual-MiniLM-L12-v2',
