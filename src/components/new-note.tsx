@@ -17,11 +17,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { PenLine, Save, X } from 'lucide-react'
 import db from '#/db/db'
 import { notesTable } from '#/db/schema'
-import { pipeline, env } from '@xenova/transformers'
+import { pipeline } from '@xenova/transformers'
 import { toast } from 'sonner'
-
-env.localModelPath = '/paraphrase-multilingual-MiniLM-L12-v2/'
-env.allowRemoteModels = false
 
 export function NewNote() {
   const [open, setOpen] = useState(false)
@@ -33,6 +30,7 @@ export function NewNote() {
       'feature-extraction',
       'Xenova/paraphrase-multilingual-MiniLM-L12-v2',
       {
+        quantized: true, // Isso busca o arquivo .onnx muito menor
         progress_callback: (data: any) => {
           if (data.status === 'progress') {
             toast.info(`Baixando: ${data.progress.toFixed(2)}%`)
